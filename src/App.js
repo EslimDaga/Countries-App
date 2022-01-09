@@ -9,12 +9,14 @@ const ImageFlag = styled.img`
 `
 
 const App = () => {
-
-  const [allCountries, setAllCountries] = useState([])
+  const [allCountries, setAllCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true)
     countries().then((countries) => {
       setAllCountries(countries);
+      setLoading(false)
     })
   },[])
 
@@ -26,7 +28,7 @@ const App = () => {
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
             {
               allCountries.map((countrie) => (
-                <div className="card card-bordered" key={countrie.alpha2Code}>
+                <div className="card card-bordered bg-gray-100 dark:bg-gray-800 border-none" key={countrie.alpha2Code}>
                   <figure>
                     <ImageFlag src={countrie.flags.png} alt={countrie.name} width="auto" height="200"/>
                   </figure>
@@ -53,6 +55,13 @@ const App = () => {
                   </div>
                 </div>
               ))
+            }
+            {
+              loading && (
+                <div>
+                  <h1>Cargando...</h1>
+                </div>
+              )
             }
           </div>
         </div>
