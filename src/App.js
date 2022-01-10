@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import { countries } from "./service/countries";
 import styled from "styled-components";
 import { ShimmerPostList } from "react-shimmer-effects";
+import { SearchCircleIcon } from "@heroicons/react/solid";
 
 const ImageFlag = styled.img`
   width: 100%;
@@ -25,6 +26,18 @@ const App = () => {
     <>
       <Header />
       <div className="container mx-auto px-4">
+        <div className="items-center mt-5 sm:relative lg:flex">
+          <div className="relative">
+            <div className="absolute top-4 left-3">
+              <SearchCircleIcon className="h-6 w-6"/>
+            </div>
+            <input
+              type="text"
+              className="bg-gray-100 dark:bg-gray-900 h-14 w-full pl-12 pr-20 rounded-lg z-0 focus:shadow focus:outline-none font-bold"
+              placeholder="Buscar por Unidad"
+            />
+          </div>
+        </div>
         {
           loading ? (
             <ShimmerPostList postStyle="STYLE_FOUR" col={4} row={4} className="mt-5"/>
