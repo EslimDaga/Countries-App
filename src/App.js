@@ -13,6 +13,7 @@ const ImageFlag = styled.img`
 const App = () => {
   const [allCountries, setAllCountries] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setLoading(true)
@@ -21,6 +22,16 @@ const App = () => {
       setLoading(false)
     })
   },[])
+
+  const filterCountries = () => {
+    return allCountries.filter(val => {
+      if(search === ""){
+        return val
+      }else if(val.name.toString().toLowerCase().includes(search.toLowerCase())){
+        return val
+      }
+    })
+  }
 
   return (
     <>
@@ -35,6 +46,7 @@ const App = () => {
               type="text"
               className="bg-gray-100 dark:bg-gray-900 h-14 w-full pl-12 pr-20 rounded-lg z-0 focus:shadow focus:outline-none font-bold"
               placeholder="Buscar por Unidad"
+              onChange={event => {setSearch(event.target.value)}}
             />
           </div>
         </div>
@@ -45,7 +57,8 @@ const App = () => {
             <div className="flex flex-wrap justify-center">
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
                 {
-                  allCountries.map((countrie) => (
+                  filterCountries().length > 0 ?
+                  filterCountries().map((countrie) => (
                     <div className="card card-bordered bg-gray-100 dark:bg-gray-800 border-none" key={countrie.alpha2Code}>
                       <figure>
                         <ImageFlag src={countrie.flags.png} alt={countrie.name} width="auto" height="200"/>
@@ -72,7 +85,7 @@ const App = () => {
                         </div>
                       </div>
                     </div>
-                  ))
+                  )) : null
                 }
               </div>
             </div>
