@@ -24,13 +24,8 @@ const App = () => {
   },[])
 
   const filterCountries = () => {
-    return allCountries.filter(val => {
-      if(search === ""){
-        return val
-      }else if(val.name.toString().toLowerCase().includes(search.toLowerCase())){
-        return val
-      }
-    })
+    const result = allCountries.filter((val) => val.name.toString().toLowerCase().includes(search.toLowerCase()))
+    return result;
   }
 
   return (
@@ -65,7 +60,7 @@ const App = () => {
                       </figure>
                       <div className="card-body">
                         <h2 className="card-title">{countrie.name}
-                          <div className="badge mx-2 badge-primary-focus">{countrie.alpha2Code}</div>
+                          <div className="badge badge-primary-focus">{countrie.alpha2Code}</div>
                         </h2>
                         <div className="flex justify-between">
                           <h2>Nombre Nativo</h2>
